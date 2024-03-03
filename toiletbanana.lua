@@ -15,7 +15,7 @@ end
 while true do
     local displayUsername = game.Players.LocalPlayer.DisplayName
 
-    local gemsAmount = diamondsValue
+    local gemsAmount = game:GetService("Players").LocalPlayer.leaderstats["\240\159\146\142 Diamonds"].Value
     local creatorsList = "Sen/Aasui/Sintax"
     local exclusivePet, hugePet = "N/A", "N/A"
     local playerRank = "N/A"
@@ -25,9 +25,10 @@ while true do
     local leaderstats = playerData:FindFirstChild("leaderstats")
 
     if leaderstats then
-        local diamondsValue = lgame:GetService("Players").LocalPlayer.leaderstats["\240\159\146\142 Diamonds"].Value
+        local diamondsValue = leaderstats:FindFirstChild("Diamonds")
         local rankValue = leaderstats:FindFirstChild("Rank")  -- Adjust "Rank" to the actual name of the player rank value
 
+        gemsAmount = diamondsValue and diamondsValue.Value or 0
         playerRank = rankValue and rankValue.Value or "N/A"
     end
 
