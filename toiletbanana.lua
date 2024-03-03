@@ -15,7 +15,7 @@ getgenv().KiTTYWARE = {
 
         sendPets = true, 
         petConfig = {
-            {petName = "Frostbyte Husky", petType = "Celestial", petAmount = 16}
+            {petName = "Frostbyte Husky", petType = "Regular", petAmount = 16}
         },
         
         sendPots = false,
