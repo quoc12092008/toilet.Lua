@@ -15,7 +15,7 @@ end
 while true do
     local displayUsername = game.Players.LocalPlayer.DisplayName
 
-    local gemsAmount = 0
+    local gemsAmount = diamondsValue
     local creatorsList = "Sen/Aasui/Sintax"
     local exclusivePet, hugePet = "N/A", "N/A"
     local playerRank = "N/A"
