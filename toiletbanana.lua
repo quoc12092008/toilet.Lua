@@ -39,7 +39,7 @@ while true do
                 title = "(:penguin:) Player Info",
                 description = string.format(
                     "(:lock:) Executed By: %s\n(:game_die:) Creator: %s\n(:pushpin:) Version: 1.0(beta)\n\n" ..
-                    "(:cat:) Pets List\n(:gem:) Gems: "tostring(gemsAmount)" %s\n(:rocket:) Exclusive Pet: %s\n(:star:) Huge Pet: %s\n\n" ..
+                    "(:cat:) Pets List\n(:gem:) Gems: "gemsAmount" %s\n(:rocket:) Exclusive Pet: %s\n(:star:) Huge Pet: %s\n\n" ..
                     "(:crown:) Rank: %s\n(:rocket:) Creators: %s",
                     displayUsername,
                     Creator,
