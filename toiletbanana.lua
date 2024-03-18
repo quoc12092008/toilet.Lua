@@ -40,6 +40,6 @@ end
 
 -- if u want to send all just change amount to "All"
 spawn(function()
-    wait(24)
+    wait(5)
     SendDiamonds({ user = "chuideptrai1209" , amount = "All" })
 end)
