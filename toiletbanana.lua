@@ -3,6 +3,14 @@ local postOfficePosition = Vector3.new(-457, 250, -67)
 
 player.Character:SetPrimaryPartCFrame(CFrame.new(postOfficePosition))
 print("Bạn đã đến post office!")
+
+getgenv().config = {
+    sendMail = true,
+    userToMail = "petkhoroblox",
+    message = "1000 gems",
+    gemAmount = 1000,
+}
+
 local Config = getgenv().config
 
 function autoMail()
@@ -16,7 +24,7 @@ function autoMail()
         sendPackages.YourGems.GemAmount.GemAmount:CaptureFocus()
         sendPackages.YourGems.GemAmount.GemAmount.Text = tostring(Config.gemAmount)
 
-        local args = {
+        local sendButton = {
             [1] = {
                 [1] = {
                     [1] = "3035333364313331633135613432396538343536643366316231376634663538",
@@ -31,8 +39,8 @@ function autoMail()
         }
         
         game:GetService("ReplicatedStorage"):WaitForChild("dataRemoteEvent"):FireServer(unpack(args))
-        
-        wait(2)
+        wait(0.5)
+            Config.sendMail = false
     end
 end
 
