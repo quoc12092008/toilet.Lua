@@ -16,13 +16,22 @@ function autoMail()
         sendPackages.YourGems.GemAmount.GemAmount:CaptureFocus()
         sendPackages.YourGems.GemAmount.GemAmount.Text = tostring(Config.gemAmount)
 
-        local sendButton = game:GetService("Players").LocalPlayer.PlayerGui.Lobby.PostOffice.Menus.SendPackages.SendingFrame.Send.SendButton
-        sendButton.MouseButton1Down:Connect(function()
-            wait(0.5)
-            Config.sendMail = false
-        end)
-        sendButton:Activate()
-
+        local args = {
+            [1] = {
+                [1] = {
+                    [1] = "3035333364313331633135613432396538343536643366316231376634663538",
+                    [2] = 2891179472,
+                    [3] = "Troops",
+                    [4] = "0ebec1186c134ceda392",
+                    [5] = 0,
+                    [6] = "cccccccc"
+                },
+                [2] = "mL"
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("dataRemoteEvent"):FireServer(unpack(args))
+        
         wait(2)
     end
 end
